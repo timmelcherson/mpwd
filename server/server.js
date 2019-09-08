@@ -2,30 +2,40 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+
+
+// Import routes
+const whiskies = require('./routes/api/whiskies');
 
 // Bring in Express JS
 const app = express();
 
 // Bodyparser Middleware
-app.use(express.urlencoded({ extended: false }));
+app.use('/uploads/', express.static('uploads'));
+app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
 
 // DB Config
-// Atlas URI
-// const db = require('./config/keys').mongoURIAtlas;
+const db = require('./config/keys.js').mongoURILocal;
 
 // Connect to Mongo
-// mongoose
-// 	.connect(db, { useNewUrlParser: true, useCreateIndex: true })
-// 	.then(() => console.log('MongoDB Connected'))
-// 	.catch(err => console.log(err));
+mongoose
+	.connect(db, { useNewUrlParser: true, useCreateIndex: true })
+	.then(() => console.log('MongoDB Connected'))
+	.catch(err => console.log(err));
 
 // mongoose.set('useFindAndModify', false);
+
+// Custom API routes
+app.use('/api/whiskies', whiskies);
 
 // Set static folder
 app.use(express.static(path.join(__dirname, '../client/public')));
 
 // Any request that doesn't match the above should be redirected to this
 app.get('*', (req, res) => {
+	console.log('Non-matching api request');
 	res.sendFile(path.resolve(__dirname, '../client', 'public', 'index.html'));
 });
 
@@ -34,7 +44,7 @@ app.get('*', (req, res) => {
 // 	// Set static folder
 // 	app.use(express.static('client/build'));
 
-// 	// Catch all requests that doesn't match the above 
+// 	// Catch all requests that doesn't match the above
 // 	app.get('*', (req, res) => {
 // 		res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
 // 	})
