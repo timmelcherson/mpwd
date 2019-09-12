@@ -36,14 +36,25 @@ const Whisky = require('../../models/Whisky');
 router.get('/', (req, res) => {
 	console.log('get request to whiskies');
 	console.log('res: ' + res);
-	Whisky.find().then(whiskies => res.json(whiskies));
+	Whisky.find()
+		.then(whiskies => res.json(whiskies))
+		.catch(err => res.status(400).json('Error: ' + err));
+});
+
+// @route GET api/whiskies/:id
+// @desc Get a specified whisky
+// @access Public
+router.get('/:id', (req, res) => {
+	Whisky.findById(req.params.id)
+		.then(whisky => res.json(whisky))
+		.catch(err => res.status(400).json('Error: ' + err));
 });
 
 // @route POST api/whiskies
 // @desc Create a new Whisky
 // @access Public
 router.post('/', upload.single('whiskyImage'), (req, res) => {
-	console.log("POST REQUEST IN SERVER");
+	console.log('POST REQUEST IN SERVER');
 	console.log(req.file);
 
 	if (!req.body.name) {
@@ -61,31 +72,12 @@ router.post('/', upload.single('whiskyImage'), (req, res) => {
 		});
 	}
 
-	// let img;
-
-	// switch (req.body.name) {
-	// 	case 'Talisker':
-	// 		img = 'assets/images/talisker.jpg';
-	// 		break;
-	// 	case 'Aberlour':
-	// 		img = 'assets/images/aberlour.jpg';
-	// 		break;
-	// 	case 'Glenlivet':
-	// 		img = 'assets/images/glenlivet.jpg';
-	// 		break;
-	// 	case 'Laphroaig':
-	// 		img = 'assets/images/laphroaig.jpg';
-	// 		break;
-	// 	case 'Bunnahabhain':
-	// 		img = 'assets/images/bunnahabhain.jpg';
-	// 		break;
-	// }
-
 	const newWhisky = new Whisky({
 		name: req.body.name,
 		description: req.body.description,
 		score: req.body.score,
-		img: req.file.path
+		img: req.file.path,
+		date: req.body.date
 	});
 
 	newWhisky.save(err => {
@@ -99,6 +91,31 @@ router.post('/', upload.single('whiskyImage'), (req, res) => {
 			success: true,
 			message: 'Whisky added!'
 		});
+	});
+});
+
+// @route POST api/whiskies/:id
+// @desc Delete a Whisky
+// @access Public
+router.delete('/:id', (req, res) => {
+	Whisky.findByIdAndRemove(req.params.id)
+		.then(whisky => res.json(`${whisky.name} deleted`))
+		.catch(err => res.status(400).json('Error: ' + err));
+});
+
+// @route PUT api/whiskies
+// @desc Update Whisky
+// @access Public
+router.put('/update/:id', (req, res) => {
+	Whisky.findByIdAndUpdate(req.params.id).then(whisky => {
+		whisky.name = req.body.name;
+		whisky.description = req.body.description;
+		whisky.score = req.body.score;
+
+		whisky
+			.save()
+			.then(() => res.json('Whisky updated!'))
+			.catch(err => res.status(400).json('Error: ' + err));
 	});
 });
 

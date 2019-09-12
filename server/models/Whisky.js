@@ -16,6 +16,9 @@ const WhiskySchema = new Schema({
     },
     img: {
         type: String
+    },
+    date: {
+        type: String
     }
 });
 
