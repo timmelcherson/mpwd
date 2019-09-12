@@ -1,0 +1,18 @@
+#item-container {
+	position: absolute;
+	z-index: 2;
+	width: 100%;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-flow: column;
+}
+
+#item-container h1 {
+	font-family: 'Josefin Sans', sans-serif;
+	font-size: 1.2em;
+	color: white;
+	font-weight: 500;
+}
+
