@@ -45,11 +45,11 @@ class App extends Component {
 			<Router>
 				<section id='app-main-container'>
 					<img
-						src='assets/images/highlands.jpg'
+						src='assets/images/paperbg.jpg'
 						alt=''
 						id='main-background'
 					/>
-					<div id='overlay' />
+					{/* <div id='overlay' /> */}
 
 					<LandingPage />
 

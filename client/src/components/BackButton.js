@@ -17,9 +17,7 @@ class BackButton extends Component {
 
 	render() {
 		return (
-			<Link to='/' className={'back-to-home-button'} onClick={this.test}>
-				Back
-			</Link>
+			<Link to={this.props.url || '/'} className={'back-button'} onClick={this.test} />
 		);
 	}
 }

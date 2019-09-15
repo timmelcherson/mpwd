@@ -44,8 +44,6 @@ class ItemForm extends Component {
 			previousScoreElement.classList.remove('selected-score');
 		}
 
-		let score = event.target.innerHTML;
-		// event.target.style.transform = 'scale(0.9)';
 		event.target.classList.add('selected-score');
 
 		this.setState({

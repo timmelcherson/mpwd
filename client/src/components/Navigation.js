@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Fade from 'react-reveal/Fade';
+// import Fade from 'react-reveal/Fade';
 // import PropTypes from 'prop-types';
 
 import './Navigation.css';
@@ -12,7 +12,6 @@ class Navigation extends Component {
 
 	componentDidMount() {
 		// this.setInitialLink();
-		console.log('Nav mounted');
 	}
 
 	componentWillUnmount() {

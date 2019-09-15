@@ -1,14 +1,38 @@
-.back-to-home-button {
-    position: absolute;
-    text-decoration: none;
-    background: rgb(82, 172, 105);
-    border: 5px solid rgb(82, 172, 105);
-    border-radius: 10px;
-    margin-top: 1em;
-    margin-left: 1em;
-    left: 0;
-    top: 0;
-    padding: .5em;
-    color: white;
-    font-family: 'Courier New', Courier, monospace;
+.back-button {
+	position: absolute;
+	text-decoration: none;
+	margin-left: 2em;
+	margin-top: 3em;
+	left: 0;
+	top: 0;
+}
+
+.back-button::before,
+.back-button::after {
+	position: absolute;
+	content: '';
+	border: 1px solid black;
+	border-radius: 3px;
+	height: 6px;
+	width: 50px;
+	left: 0;
+	padding: 5px;
+    transition: all 0.2s ease-out;
+    
+	background-image: linear-gradient(#000, #000);
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	background-size: 0% 0%;
+}
+
+.back-button::before {
+	transform: rotate(45deg);
+}
+.back-button::after {
+	transform: rotate(-45deg);
+}
+.back-button:hover::after,
+.back-button:hover::before {
+    background-size: 100% 100%;
+	cursor: pointer;
 }

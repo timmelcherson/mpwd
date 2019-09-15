@@ -1,70 +1,64 @@
 import React, { Component } from 'react';
 import Fade from 'react-reveal/Fade';
-import { CSSTransition } from 'react-transition-group';
+// import { CSSTransition } from 'react-transition-group';
 // import PropTypes from 'prop-types';
 
 import './Collection.css';
-import CollectionEntity from './CollectionEntity';
+// import CollectionEntity from './CollectionEntity';
+import WhiskyDashboard from './whiskydashboard/WhiskyDashboard';
 import BackButton from '../BackButton';
+
+const ListEntity = props => {
+	return (
+		<Fade>
+			<article
+				id={`list-item-${props.index}`}
+				className='collection-entity-container'
+				onClick={() => props.onClick(props.index)}>
+				<img
+					src={props.img}
+					alt=''
+					className='collection-entity-thumbnail'
+				/>
+
+				<div className='collection-entity-text'>
+					<h3>{props.name}</h3>
+					<p>Score: {props.score}</p>
+				</div>
+			</article>
+		</Fade>
+	);
+};
 
 class Collection extends Component {
 	constructor(props) {
-		console.log('Collection constructor');
 		super(props);
-
-		console.log('Props:');
-		console.log(this.props);
 
 		this.state = {
 			isLoading: true,
-			names: [],
-			scores: [],
-			descriptions: [],
-			images: [],
-			dates: [],
-			isRendered: false,
-			showCollectionPage: true
+			entities: [],
+			renderList: true,
+			renderDashboard: false,
+			sendToDashboard: null
 		};
 	}
 
 	componentDidMount() {
 		this.sendToParent();
+
 		fetch('api/whiskies')
 			.then(response => response.json())
 			.then(data => {
-				// console.log('data fetched:\n' + JSON.stringify(data));
-				let names = [];
-				let scores = [];
-				let descriptions = [];
-				let images = [];
-				let dates = [];
+				let entities = [];
 
-				data.map(element => {
-					names.push(element.name);
-					scores.push(element.score);
-					descriptions.push(element.description);
-					images.push(element.img);
-					dates.push(element.date);
+				data.map(entity => {
+					entities.push(entity);
 					return null;
 				});
-				// let roomTypes = [];
-				// let rooms = [];
-				// data.map(room => {
-				// 	//tempArray.push(room);
-				// 	if (!roomTypes.includes(room.roomType)) {
-				// 		roomTypes.push(room.roomType);
-				// 		rooms.push(room);
-				// 	}
-				// 	return null;
-				// });
 
 				this.setState({
 					isLoading: false,
-					names: names,
-					scores: scores,
-					descriptions: descriptions,
-					images: images,
-					dates: dates
+					entities: entities
 				});
 				return data;
 			})
@@ -73,61 +67,52 @@ class Collection extends Component {
 			});
 	}
 
-	componentDidUpdate() {
-		console.log('componentDidUpdate');
-	}
-
 	componentWillUnmount() {
-		console.log('componentWillUnmount');
 		this.props.hideNavCallback(false);
 	}
-
-	// showNav = () => {
-	// 	let nav = document.getElementById('nav-link-container');
-	// 	let title = document.getElementById('main-page-header');
-	// 	nav.style.display = 'flex';
-	// 	title.style.display = 'flex';
-	// }
 
 	sendToParent = () => {
 		this.props.hideNavCallback(true);
 	};
 
-	renderEntities = (names, scores, descriptions, images, dates) => {
-		// let names = [
-		// 	'Talisker',
-		// 	'Glenlivet',
-		// 	'Aberlour',
-		// 	'Bunnahabhain',
-		// 	'Laphroaig'
-		// ];
-		// let scores = [4, 2, 4, 3, 5];
-		let entities = [];
+	closeDashboardCallback = () => {
+		this.setState({
+			renderList: true,
+			renderDashboard: false
+		});
+	};
 
-		for (let i = 0; i < names.length; i++) {
-			// console.log('Pushing name: ' + names[i]);
-			entities.push(
-				<CollectionEntity
-					name={names[i]}
-					score={scores[i]}
-					img={images[i]}
-					key={i}
+	handleListClick = index => {
+		console.log('ID: ' + this.state.entities[index]._id);
+
+		this.setState({
+			renderList: false,
+			renderDashboard: true,
+			sendToDashboard: this.state.entities[index]
+		});
+	};
+
+	renderList = () => {
+		return this.state.entities.map((entity, index) => {
+			return (
+				<ListEntity
+					name={entity.name}
+					score={entity.score}
+					img={entity.img}
+					index={index}
+					key={index}
+					onClick={this.handleListClick}
 				/>
 			);
-		}
-
-		// console.log(entities);
-		return entities;
+		});
 	};
 
 	render() {
 		const {
 			isLoading,
-			names,
-			scores,
-			descriptions,
-			images,
-			dates
+			renderList,
+			renderDashboard,
+			sendToDashboard
 		} = this.state;
 
 		if (isLoading) {
@@ -138,28 +123,24 @@ class Collection extends Component {
 			);
 		}
 
-		return (
-			<CSSTransition
-				in={this.state.showCollectionPage}
-				timeout={400}
-				classNames='fade'
-				unmountOnExit
-				appear>
-				<section id='collection-container'>
-					<BackButton />
+		if (renderDashboard) {
+			return (
+				<WhiskyDashboard
+					closeDashboardButtonCallback={this.closeDashboardCallback}
+					item={sendToDashboard}
+				/>
+			);
+		}
 
-					<div id='collection-list'>
-						{this.renderEntities(
-							names,
-							scores,
-							descriptions,
-							images,
-							dates
-						)}
-					</div>
+		if (renderList) {
+			return (
+				<section id='collection-container'>
+					<BackButton url='/' />
+
+					<div id='collection-list'>{this.renderList()}</div>
 				</section>
-			</CSSTransition>
-		);
+			);
+		}
 	}
 }
 
