@@ -93,85 +93,97 @@ class ItemForm extends Component {
 			.catch(err => console.log('Error when adding whisky' + err));
 	};
 
+	closeForm = () => {
+		this.props.closeFormButtonCallback();
+	};
+
 	render() {
 		return (
-			<form
-				id='new-whisky-form'
-				onSubmit={this.handleSubmit}
-				encType='multipart/form-data'>
-				<div className='new-whisky-form-row'>
-					<label className='new-whisky-form-label'>Name of item</label>
-					<input
-						name='name'
-						type='text'
-						value={this.state.name}
-						className='new-whisky-form-input'
-						onChange={this.handleChange}
-					/>
-				</div>
-				<div className='new-whisky-form-row'>
-					<label className='new-whisky-form-label'>Description</label>
+			<section className='form-container'>
+				<div className='back-button' onClick={this.closeForm} />
 
-					<textarea
-						rows='4'
-						name='description'
-						className='new-whisky-form-input'
-						value={this.state.value}
-						onChange={this.handleChange}
-					/>
-				</div>
-				<div className='new-whisky-form-row'>
-					<label className='new-whisky-form-label'>Score</label>
-					<div className='new-whisky-form-score-row'>
-						<div
-							id='new-whisky-form-score-1'
-							className='new-whisky-form-score-box'
-							onClick={this.handleScoreChange}>
-							1
-						</div>
-						<div
-							id='new-whisky-form-score-2'
-							className='new-whisky-form-score-box'
-							onClick={this.handleScoreChange}>
-							2
-						</div>
-						<div
-							id='new-whisky-form-score-3'
-							className='new-whisky-form-score-box'
-							onClick={this.handleScoreChange}>
-							3
-						</div>
-						<div
-							id='new-whisky-form-score-4'
-							className='new-whisky-form-score-box'
-							onClick={this.handleScoreChange}>
-							4
-						</div>
-						<div
-							id='new-whisky-form-score-5'
-							className='new-whisky-form-score-box'
-							onClick={this.handleScoreChange}>
-							5
+				<form
+					id='new-whisky-form'
+					onSubmit={this.handleSubmit}
+					encType='multipart/form-data'>
+					<div className='new-whisky-form-row'>
+						<label className='new-whisky-form-label'>
+							Name of item
+						</label>
+						<input
+							name='name'
+							type='text'
+							value={this.state.name}
+							className='new-whisky-form-input'
+							onChange={this.handleChange}
+						/>
+					</div>
+					<div className='new-whisky-form-row'>
+						<label className='new-whisky-form-label'>
+							Description
+						</label>
+
+						<textarea
+							rows='4'
+							name='description'
+							className='new-whisky-form-input'
+							value={this.state.value}
+							onChange={this.handleChange}
+						/>
+					</div>
+					<div className='new-whisky-form-row'>
+						<label className='new-whisky-form-label'>Score</label>
+						<div className='new-whisky-form-score-row'>
+							<div
+								id='new-whisky-form-score-1'
+								className='new-whisky-form-score-box'
+								onClick={this.handleScoreChange}>
+								1
+							</div>
+							<div
+								id='new-whisky-form-score-2'
+								className='new-whisky-form-score-box'
+								onClick={this.handleScoreChange}>
+								2
+							</div>
+							<div
+								id='new-whisky-form-score-3'
+								className='new-whisky-form-score-box'
+								onClick={this.handleScoreChange}>
+								3
+							</div>
+							<div
+								id='new-whisky-form-score-4'
+								className='new-whisky-form-score-box'
+								onClick={this.handleScoreChange}>
+								4
+							</div>
+							<div
+								id='new-whisky-form-score-5'
+								className='new-whisky-form-score-box'
+								onClick={this.handleScoreChange}>
+								5
+							</div>
 						</div>
 					</div>
-				</div>
-				<div className='new-whisky-form-row'>
-					<label className='new-whisky-form-label'>Image</label>
+					<div className='new-whisky-form-row'>
+						<label className='new-whisky-form-label'>Image</label>
 
+						<input
+							id='new-whisky-form-image-input'
+							name='whiskyImage'
+							className='new-whisky-form-input'
+							type='file'
+							onChange={this.handleFileSelect}
+						/>
+					</div>
 					<input
-						id='new-whisky-form-image-input'
-						name='whiskyImage'
-						className='new-whisky-form-input'
-						type='file'
-						onChange={this.handleFileSelect}
+						id='new-whisky-form-submit-button'
+						type='submit'
+						value='Submit'
 					/>
-				</div>
-				<input
-					id='new-whisky-form-submit-button'
-					type='submit'
-					value='Submit'
-				/>
-			</form>
+				</form>
+			</section>
 		);
 	}
 }

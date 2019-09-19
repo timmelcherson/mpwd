@@ -14,7 +14,6 @@ class CollectionEntity extends Component {
 			img: props.img,
 			index: props.index,
 			renderWhiskyDashboard: false
-
 		};
 	}
 
@@ -31,6 +30,7 @@ class CollectionEntity extends Component {
 		if (renderWhiskyDashboard) {
 			return <WhiskyDashboard />;
 		} 
+		
 		else {
 			return (
 				<article

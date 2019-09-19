@@ -14,7 +14,10 @@ class Item extends Component {
 
 		this.state = {
 			isRendered: false,
-			showItemPage: true
+			showItemPage: true,
+			renderWhiskyForm: false,
+			renderBeerForm: false,
+			renderSelector: true
 		};
 	}
 
@@ -35,50 +38,78 @@ class Item extends Component {
 	};
 
 	handleClick = event => {
-		let element;
+		// let element;
 
 		switch (event.target.id) {
 			case 'select-new-beer':
-				element = document.getElementById('new-beer-form');
-				element.style.display = 'flex';
-				break;
+				// element = document.getElementById('new-beer-form');
+				// element.style.display = 'flex';
+				this.setState({
+					renderBeerForm: true,
+					renderSelector: false
+				});
 
 			case 'select-new-whisky':
-				element = document.getElementById('new-whisky-form');
-				element.style.display = 'flex';
-				break;
+				// element = document.getElementById('new-whisky-form');
+				// element.style.display = 'flex';
+				this.setState({
+					renderWhiskyForm: true,
+					renderSelector: false
+				});
 		}
 
-		element = document.getElementById("selector-inner-container");
-		element.style.display = "none";
+		// element = document.getElementById('selector-inner-container');
+		// element.style.display = 'none';
+	};
+
+	closeFormCallback = () => {
+		this.setState({
+			renderSelector: true,
+			renderBeerForm: false,
+			renderWhiskyForm: false
+		});
 	};
 
 	render() {
-		return (
-			<CSSTransition
-				in={this.state.showItemPage}
-				timeout={400}
-				classNames='fade'
-				unmountOnExit
-				appear>
-				<section id='item-container'>
-					<BackButton />
+		const { renderWhiskyForm, renderBeerForm, renderSelector } = this.state;
 
-					<div id='selector-inner-container'>
-						<h2>What do you want to add?</h2>
-						<p id='select-new-beer' onClick={this.handleClick}>
-							New Beer
-						</p>
-						<p id='select-new-whisky' onClick={this.handleClick}>
-							New Whisky
-						</p>
-					</div>
+		if (renderWhiskyForm) {
+			return <NewWhiskyForm closeFormButtonCallback={this.closeFormCallback} />;
+		}
 
-					<NewWhiskyForm />
-					<NewBeerForm />
-				</section>
-			</CSSTransition>
-		);
+		if (renderBeerForm) {
+			return <NewBeerForm closeFormButtonCallback={this.closeFormCallback} />;
+		}
+
+		if (renderSelector) {
+			return (
+				<CSSTransition
+					in={this.state.showItemPage}
+					timeout={400}
+					classNames='fade'
+					unmountOnExit
+					appear>
+					<section id='item-container'>
+						<BackButton />
+
+						<div id='selector-inner-container'>
+							<h2>What do you want to add?</h2>
+							<p id='select-new-beer' onClick={this.handleClick}>
+								New Beer
+							</p>
+							<p
+								id='select-new-whisky'
+								onClick={this.handleClick}>
+								New Whisky
+							</p>
+						</div>
+
+						{/* <NewWhiskyForm />
+						<NewBeerForm /> */}
+					</section>
+				</CSSTransition>
+			);
+		}
 	}
 }
 
