@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Fade from 'react-reveal/Fade';
+import Reveal from 'react-reveal/Reveal';
 // import { CSSTransition } from 'react-transition-group';
 // import PropTypes from 'prop-types';
 
@@ -10,7 +11,7 @@ import BackButton from '../BackButton';
 
 const ListEntity = props => {
 	return (
-		<Fade>
+		<Reveal effect="fadeInUp">
 			<article
 				id={`list-item-${props.index}`}
 				className='collection-entity-container'
@@ -26,7 +27,7 @@ const ListEntity = props => {
 					<p>Score: {props.score}</p>
 				</div>
 			</article>
-		</Fade>
+		</Reveal>
 	);
 };
 
@@ -134,11 +135,13 @@ class Collection extends Component {
 
 		if (renderList) {
 			return (
-				<section id='collection-container'>
-					<BackButton url='/' />
+				<Fade>
+					<section id='collection-container'>
+						<BackButton url='/' />
 
-					<div id='collection-list'>{this.renderList()}</div>
-				</section>
+						<div id='collection-list'>{this.renderList()}</div>
+					</section>
+				</Fade>
 			);
 		}
 	}

@@ -3,8 +3,9 @@ import React, { Component } from 'react';
 import { CSSTransition } from 'react-transition-group';
 // import PropTypes from 'prop-types';
 
-import './Item.css';
-import ItemForm from './ItemForm';
+import './FormSelector.css';
+import NewWhiskyForm from './NewWhiskyForm';
+import NewBeerForm from './NewBeerForm';
 import BackButton from '../BackButton';
 
 class Item extends Component {
@@ -29,33 +30,27 @@ class Item extends Component {
 		this.props.hideNavCallback(false);
 	}
 
-	// showNav = () => {
-	// 	let nav = document.getElementById('nav-link-container');
-	// 	let title = document.getElementById('main-page-header');
-	// 	nav.style.display = 'flex';
-	// 	title.style.display = 'flex';
-	// };
-
 	sendToParent = () => {
 		this.props.hideNavCallback(true);
 	};
 
-	// fadeIn = () => {
-	// 	let element = document.getElementById('item-container');
-	// 	element.classList.add('fadein');
-	// 	if (element.classList.contains('fadeout'))
-	// 		element.classList.remove('fadeout');
-	// };
+	handleClick = event => {
+		let element;
 
-	// fadeOut = () => {
-	// 	let element = document.getElementById('item-container');
-	// 	element.classList.add('fadeout');
-	// 	element.classList.remove('fadein');
-	// };
-	switch = () => {
-		this.setState(() => ({
-			showItemPage: !this.state.showItemPage
-		}));
+		switch (event.target.id) {
+			case 'select-new-beer':
+				element = document.getElementById('new-beer-form');
+				element.style.display = 'flex';
+				break;
+
+			case 'select-new-whisky':
+				element = document.getElementById('new-whisky-form');
+				element.style.display = 'flex';
+				break;
+		}
+
+		element = document.getElementById("selector-inner-container");
+		element.style.display = "none";
 	};
 
 	render() {
@@ -68,10 +63,19 @@ class Item extends Component {
 				appear>
 				<section id='item-container'>
 					<BackButton />
-					<button onClick={this.switch}>SWITCH</button>
-					<h1>Create New Item</h1>
 
-					<ItemForm />
+					<div id='selector-inner-container'>
+						<h2>What do you want to add?</h2>
+						<p id='select-new-beer' onClick={this.handleClick}>
+							New Beer
+						</p>
+						<p id='select-new-whisky' onClick={this.handleClick}>
+							New Whisky
+						</p>
+					</div>
+
+					<NewWhiskyForm />
+					<NewBeerForm />
 				</section>
 			</CSSTransition>
 		);

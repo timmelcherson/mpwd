@@ -1,5 +1,5 @@
-#item-form {
-	display: flex;
+#new-beer-form {
+	display: none;
 	align-items: center;
 	justify-content: center;
 	flex-flow: column;
@@ -9,14 +9,15 @@
     border-radius: 10px;
 }
 
-.item-form-row {
+
+.new-beer-form-row {
 	display: flex;
 	align-items: center;
 	justify-content: flex-start;
 	width: 100%;
 }
 
-.item-form-label {
+.new-beer-form-label {
 	display: flex;
 	align-items: flex-start;
 	font-family: 'Lato', sans-serif;
@@ -28,7 +29,7 @@
 	margin: 1em;
 }
 
-.item-form-input {
+.new-beer-form-input {
 	margin: 1em;
     border: 1px solid rgba(255, 255, 255, 0.7);
     background: none;
@@ -38,11 +39,7 @@
 	resize: none;
 }
 
-#item-form-image-input {
-    
-}
-
-#item-form-submit-button {
+#new-beer-form-submit-button {
 	margin: 2em auto;
 	border: 1px solid rgba(255, 255, 255, 0.7);
 	background: rgba(0, 0, 0, 0);
@@ -55,19 +52,19 @@
 	font-weight: 500;
 }
 
-#item-form-submit-button:hover {
+#new-beer-form-submit-button:hover {
 	opacity: 0.8;
 	cursor: pointer;
 }
 
-.item-form-score-box {
+.new-beer-form-score-box {
 	padding: 0.3em 1em;
 	border: 3px solid rgba(255, 255, 255, 0.7);
 	color: white;
 	transition: transform 0.2s;
 }
 
-.item-form-score-box:hover {
+.new-beer-form-score-box:hover {
 	cursor: pointer;
 	transition: all 0.3s;
 	opacity: 0.5;
@@ -79,7 +76,7 @@
     transition: all .3s;
 }
 
-.item-form-score-row {
+.new-beer-form-score-row {
 	width: 100%;
 	display: flex;
 	justify-content: space-between;

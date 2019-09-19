@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 
-import './ItemForm.css';
+import './NewWhiskyForm.css';
 
 class ItemForm extends Component {
 	constructor(props) {
@@ -96,78 +96,78 @@ class ItemForm extends Component {
 	render() {
 		return (
 			<form
-				id='item-form'
+				id='new-whisky-form'
 				onSubmit={this.handleSubmit}
 				encType='multipart/form-data'>
-				<div className='item-form-row'>
-					<label className='item-form-label'>Name of item</label>
+				<div className='new-whisky-form-row'>
+					<label className='new-whisky-form-label'>Name of item</label>
 					<input
 						name='name'
 						type='text'
 						value={this.state.name}
-						className='item-form-input'
+						className='new-whisky-form-input'
 						onChange={this.handleChange}
 					/>
 				</div>
-				<div className='item-form-row'>
-					<label className='item-form-label'>Description</label>
+				<div className='new-whisky-form-row'>
+					<label className='new-whisky-form-label'>Description</label>
 
 					<textarea
 						rows='4'
 						name='description'
-						className='item-form-input'
+						className='new-whisky-form-input'
 						value={this.state.value}
 						onChange={this.handleChange}
 					/>
 				</div>
-				<div className='item-form-row'>
-					<label className='item-form-label'>Score</label>
-					<div className='item-form-score-row'>
+				<div className='new-whisky-form-row'>
+					<label className='new-whisky-form-label'>Score</label>
+					<div className='new-whisky-form-score-row'>
 						<div
-							id='item-form-score-1'
-							className='item-form-score-box'
+							id='new-whisky-form-score-1'
+							className='new-whisky-form-score-box'
 							onClick={this.handleScoreChange}>
 							1
 						</div>
 						<div
-							id='item-form-score-2'
-							className='item-form-score-box'
+							id='new-whisky-form-score-2'
+							className='new-whisky-form-score-box'
 							onClick={this.handleScoreChange}>
 							2
 						</div>
 						<div
-							id='item-form-score-3'
-							className='item-form-score-box'
+							id='new-whisky-form-score-3'
+							className='new-whisky-form-score-box'
 							onClick={this.handleScoreChange}>
 							3
 						</div>
 						<div
-							id='item-form-score-4'
-							className='item-form-score-box'
+							id='new-whisky-form-score-4'
+							className='new-whisky-form-score-box'
 							onClick={this.handleScoreChange}>
 							4
 						</div>
 						<div
-							id='item-form-score-5'
-							className='item-form-score-box'
+							id='new-whisky-form-score-5'
+							className='new-whisky-form-score-box'
 							onClick={this.handleScoreChange}>
 							5
 						</div>
 					</div>
 				</div>
-				<div className='item-form-row'>
-					<label className='item-form-label'>Image</label>
+				<div className='new-whisky-form-row'>
+					<label className='new-whisky-form-label'>Image</label>
 
 					<input
-						id='item-form-image-input'
+						id='new-whisky-form-image-input'
 						name='whiskyImage'
-						className='item-form-input'
+						className='new-whisky-form-input'
 						type='file'
 						onChange={this.handleFileSelect}
 					/>
 				</div>
 				<input
-					id='item-form-submit-button'
+					id='new-whisky-form-submit-button'
 					type='submit'
 					value='Submit'
 				/>

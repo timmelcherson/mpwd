@@ -5,7 +5,7 @@ import './App.css';
 
 // import Navigation from './components/Navigation';
 import LandingPage from "./components/LandingPage";
-import Item from './components/createnewitempage/Item';
+import FormSelector from './components/createnewitempage/FormSelector';
 import Collection from './components/collectionpage/Collection';
 
 class App extends Component {
@@ -69,7 +69,7 @@ class App extends Component {
 						exact
 						path='/create-new'
 						component={props => (
-							<Item
+							<FormSelector
 								{...props}
 								hideNavCallback={this.hideNav}
 								itemProp='test item'
