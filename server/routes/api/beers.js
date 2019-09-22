@@ -3,7 +3,7 @@ const router = express.Router();
 const multer = require('multer');
 
 const storage = multer.diskStorage({
-	destination: './uploads/whisky_images/',
+	destination: './uploads/beer_images/',
 	filename: function(req, file, cb) {
 		cb(null, Date.now() + '_' + file.originalname);
 	}
@@ -28,33 +28,33 @@ const upload = multer({
 // const UserSession = require('../../models/UserSession');
 
 // Item Model
-const Whisky = require('../../models/Whisky');
+const Beer = require('../../models/Beer');
 
-// @route GET api/whiskies
-// @desc Get all whiskies
+// @route GET api/beers
+// @desc Get all beers
 // @access Public
 router.get('/', (req, res) => {
-	console.log('get request to whiskies');
+	console.log('get request to beers');
 	console.log('res: ' + res);
-	Whisky.find()
-		.then(whiskies => res.json(whiskies))
+	Beer.find()
+		.then(beers => res.json(beers))
 		.catch(err => res.status(400).json('Error: ' + err));
 });
 
-// @route GET api/whiskies/:id
-// @desc Get a specified whisky
+// @route GET api/beers/:id
+// @desc Get a specified beer
 // @access Public
 router.get('/:id', (req, res) => {
-	Whisky.findById(req.params.id)
-		.then(whisky => res.json(whisky))
+	Beer.findById(req.params.id)
+		.then(beer => res.json(beer))
 		.catch(err => res.status(400).json('Error: ' + err));
 });
 
-// @route POST api/whiskies
-// @desc Create a new Whisky
+// @route POST api/beers
+// @desc Create a new Beer
 // @access Public
 router.post('/', upload.single('itemImage'), (req, res) => {
-	console.log('POST REQUEST IN SERVER');
+	console.log('BEER POST REQUEST IN SERVER');
 	console.log(req.file);
 
 	if (!req.body.name) {
@@ -72,7 +72,7 @@ router.post('/', upload.single('itemImage'), (req, res) => {
 		});
 	}
 
-	const newWhisky = new Whisky({
+	const newBeer = new Beer({
 		name: req.body.name,
 		description: req.body.description,
 		score: req.body.score,
@@ -80,41 +80,40 @@ router.post('/', upload.single('itemImage'), (req, res) => {
 		date: req.body.date
 	});
 
-	newWhisky.save(err => {
+	newBeer.save(err => {
 		if (err) {
 			return res.send({
 				success: false,
-				message: 'Whisky not saved! Error: ' + err
+				message: 'Beer not saved! Error: ' + err
 			});
 		}
 		return res.send({
 			success: true,
-			message: 'Whisky added!'
+			message: 'Beer added!'
 		});
 	});
 });
 
-// @route POST api/whiskies/:id
-// @desc Delete a Whisky
+// @route POST api/beers/:id
+// @desc Delete a Beer
 // @access Public
 router.delete('/:id', (req, res) => {
-	Whisky.findByIdAndRemove(req.params.id)
-		.then(whisky => res.json(`${whisky.name} deleted`))
+	Beer.findByIdAndRemove(req.params.id)
+		.then(beer => res.json(`${beer.name} deleted`))
 		.catch(err => res.status(400).json('Error: ' + err));
 });
 
-// @route PUT api/whiskies
-// @desc Update Whisky
+// @route PUT api/beers
+// @desc Update Beer
 // @access Public
 router.put('/update/:id', (req, res) => {
-	Whisky.findByIdAndUpdate(req.params.id).then(whisky => {
-		whisky.name = req.body.name;
-		whisky.description = req.body.description;
-		whisky.score = req.body.score;
+	Beer.findByIdAndUpdate(req.params.id).then(beer => {
+		beer.name = req.body.name;
+		beer.description = req.body.description;
+		beer.score = req.body.score;
 
-		whisky
-			.save()
-			.then(() => res.json('Whisky updated!'))
+		beer.save()
+			.then(() => res.json('Beer updated!'))
 			.catch(err => res.status(400).json('Error: ' + err));
 	});
 });

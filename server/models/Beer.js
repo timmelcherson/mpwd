@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 //Create Schema
-const WhiskySchema = new Schema({
+const BeerSchema = new Schema({
 	name: {
 		type: String,
 		required: true
@@ -22,4 +22,4 @@ const WhiskySchema = new Schema({
 	}
 });
 
-module.exports = Whisky = mongoose.model('Whisky', WhiskySchema);
+module.exports = Beer = mongoose.model('Beer', BeerSchema);

@@ -1,43 +1,23 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
+
 import './App.css';
 
-// import Navigation from './components/Navigation';
 import LandingPage from "./components/LandingPage";
-import FormSelector from './components/createnewitempage/FormSelector';
-import Collection from './components/collectionpage/Collection';
 
 class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			componentToShow: '',
-			shouldNavigationRender: true
+			shouldNavigationRender: true,
+			isLoading: true,
+			token: '',
+			buttonText: 'Switch to Sign Up',
+			viewSignInForm: true
 		};
 	}
-
-	hideNav = dataFromChild => {
-		let element = document.getElementById('landing-page-container');
-		
-		if (dataFromChild) {
-			element.style.display = 'none';
-		}
-		else {
-			element.style.display = 'flex';
-		}
-
-		// if (dataFromChild === 'Item') {
-		// 	this.setState({
-		// 		shouldNavigationRender: false
-		// 	});
-		// }
-		// if (dataFromChild === 'Collection') {
-		// 	this.setState({
-		// 		shouldNavigationRender: false
-		// 	});
-		// }
-	};
 
 	render() {
 
@@ -53,7 +33,7 @@ class App extends Component {
 
 					<LandingPage />
 
-					<Route
+					{/* <Route
 						exact
 						path='/collection'
 						component={props => (
@@ -61,6 +41,7 @@ class App extends Component {
 								{...props}
 								hideNavCallback={this.hideNav}
 								collectionProp='test collection'
+								returnToLandingPageCallback={this.closeFormCallback}
 							/>
 						)}
 					/>
@@ -75,7 +56,7 @@ class App extends Component {
 								itemProp='test item'
 							/>
 						)}
-					/>
+					/> */}
 				</section>
 			</Router>
 		);

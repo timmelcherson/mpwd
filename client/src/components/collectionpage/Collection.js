@@ -7,7 +7,7 @@ import Reveal from 'react-reveal/Reveal';
 import './Collection.css';
 // import CollectionEntity from './CollectionEntity';
 import WhiskyDashboard from './whiskydashboard/WhiskyDashboard';
-import BackButton from '../BackButton';
+import BackButton from '../navigation/BackButton';
 
 const ListEntity = props => {
 	return (
@@ -45,7 +45,6 @@ class Collection extends Component {
 	}
 
 	componentDidMount() {
-		this.sendToParent();
 
 		fetch('api/whiskies')
 			.then(response => response.json())
@@ -67,14 +66,6 @@ class Collection extends Component {
 				console.log(err, response);
 			});
 	}
-
-	componentWillUnmount() {
-		this.props.hideNavCallback(false);
-	}
-
-	sendToParent = () => {
-		this.props.hideNavCallback(true);
-	};
 
 	closeDashboardCallback = () => {
 		this.setState({

@@ -4,81 +4,65 @@ import { CSSTransition } from 'react-transition-group';
 // import PropTypes from 'prop-types';
 
 import './FormSelector.css';
-import NewWhiskyForm from './NewWhiskyForm';
-import NewBeerForm from './NewBeerForm';
-import BackButton from '../BackButton';
+import NewForm from './NewForm';
+import BackButton from '../navigation/BackButton';
 
 class Item extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			isRendered: false,
 			showItemPage: true,
-			renderWhiskyForm: false,
-			renderBeerForm: false,
-			renderSelector: true
+			renderSelector: true,
+			formCategory: ''
 		};
 	}
 
-	componentDidMount() {
-		this.sendToParent();
-	}
+	componentDidMount() {}
 
 	componentDidUpdate() {
 		console.log('componentDidUpdate');
 	}
 
-	componentWillUnmount() {
-		this.props.hideNavCallback(false);
-	}
-
-	sendToParent = () => {
-		this.props.hideNavCallback(true);
-	};
-
 	handleClick = event => {
-		// let element;
+		let str;
 
 		switch (event.target.id) {
 			case 'select-new-beer':
-				// element = document.getElementById('new-beer-form');
-				// element.style.display = 'flex';
-				this.setState({
-					renderBeerForm: true,
-					renderSelector: false
-				});
+				str = 'beer';
+				break;
 
 			case 'select-new-whisky':
-				// element = document.getElementById('new-whisky-form');
-				// element.style.display = 'flex';
-				this.setState({
-					renderWhiskyForm: true,
-					renderSelector: false
-				});
+				str = 'whisky';
+				break;
 		}
 
-		// element = document.getElementById('selector-inner-container');
-		// element.style.display = 'none';
+		console.log('selected: ' + str);
+
+		this.setState({
+			renderForm: true,
+			renderSelector: false,
+			formCategory: str
+		});
 	};
 
 	closeFormCallback = () => {
 		this.setState({
 			renderSelector: true,
-			renderBeerForm: false,
-			renderWhiskyForm: false
+			renderForm: false
 		});
 	};
 
 	render() {
-		const { renderWhiskyForm, renderBeerForm, renderSelector } = this.state;
+		const { renderSelector, renderForm, formCategory } = this.state;
 
-		if (renderWhiskyForm) {
-			return <NewWhiskyForm closeFormButtonCallback={this.closeFormCallback} />;
-		}
-
-		if (renderBeerForm) {
-			return <NewBeerForm closeFormButtonCallback={this.closeFormCallback} />;
+		if (renderForm) {
+			return (
+				<NewForm
+					category={formCategory}
+					closeFormButtonCallback={this.closeFormCallback}
+				/>
+			);
 		}
 
 		if (renderSelector) {
@@ -90,7 +74,7 @@ class Item extends Component {
 					unmountOnExit
 					appear>
 					<section id='item-container'>
-						<BackButton />
+						<BackButton url='/' />
 
 						<div id='selector-inner-container'>
 							<h2>What do you want to add?</h2>
@@ -103,9 +87,6 @@ class Item extends Component {
 								New Whisky
 							</p>
 						</div>
-
-						{/* <NewWhiskyForm />
-						<NewBeerForm /> */}
 					</section>
 				</CSSTransition>
 			);

@@ -11,16 +11,11 @@ class BackButton extends Component {
 
 	componentDidMount() {}
 
-	test = () => {
-		console.log('CLICK');
-	};
-
 	render() {
 		return (
 			<Link
 				to={this.props.url || '/'}
 				className={'back-button'}
-				onClick={this.test}
 			/>
 		);
 	}
