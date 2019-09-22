@@ -62,7 +62,7 @@ class ItemForm extends Component {
 
 		const formData = new FormData();
 
-		if (formData.hiddenCheck != ''){
+		if (formData.hiddenCheck !== ''){
 			console.log("This should be empty")
 			return;
 		}
@@ -75,8 +75,8 @@ class ItemForm extends Component {
 
 		let fetchUrl;
 
-		if (this.state.category == 'beer') fetchUrl = '/api/beers';
-		else if (this.state.category == 'whisky') fetchUrl = '/api/whiskies';
+		if (this.state.category === 'beer') fetchUrl = '/api/beers';
+		else if (this.state.category === 'whisky') fetchUrl = '/api/whiskies';
 
 		fetch(fetchUrl, {
 			method: 'POST',

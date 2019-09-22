@@ -4,10 +4,11 @@ const path = require('path');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
-
 // Import routes
 const whiskies = require('./routes/api/whiskies');
 const beers = require('./routes/api/beers');
+const signin = require('./routes/api/signin');
+const signup = require('./routes/api/signup');
 
 // Bring in Express JS
 const app = express();
@@ -31,6 +32,8 @@ mongoose
 // Custom API routes
 app.use('/api/whiskies', whiskies);
 app.use('/api/beers', beers);
+app.use('/api/signup', signup);
+app.use('/api/signin', signin);
 
 // Set static folder
 app.use(express.static(path.join(__dirname, '../client/public')));

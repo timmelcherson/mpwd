@@ -29,6 +29,11 @@ class LandingPage extends Component {
 		// landing.style.display = 'none';
 	};
 
+	// Logout callback function to send to parent
+	logoutCallback = () => {
+		this.props.logout();
+	};
+
 	returnToLandingPageCallback = () => {
 		// this.setState({
 		// 	renderLandingPage: true,
@@ -59,6 +64,8 @@ class LandingPage extends Component {
 						{/* <h1 id='main-page-header'>My Personal Whisky Diary</h1> */}
 
 						<Route exact path='/' component={Navigation} />
+
+						<button onClick={this.logoutCallback}>Logout</button>
 
 						<Route
 							exact

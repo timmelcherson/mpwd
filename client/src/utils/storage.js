@@ -1,4 +1,5 @@
 export function getFromStorage(key) {
+    console.log("getFromStorage key: " + key);
     if (!key) {
         return null;
     }
@@ -16,6 +17,8 @@ export function getFromStorage(key) {
 }
 
 export function setInStorage(key, obj) {
+    console.log("setInStorage key: " + key + " and obj: ");
+    console.log(obj);
     if (!key) {
         console.log('Error: Key is missing');
     }
