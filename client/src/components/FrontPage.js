@@ -36,7 +36,7 @@ class FrontPage extends Component {
 					{renderSignin ? (
 						<p>Not registered? Sign Up!</p>
 					) : (
-						<p>Back to Sign In</p>
+						<p>Back to Sign In TEST</p>
 					)}
 				</button>
 			</div>
